@@ -1,4 +1,4 @@
-# HTML Forms and Display
+# Simple HTML Forms x Display with Flask
 
 This project demonstrates the use of HTML forms for collecting user input and displaying the entered data on a separate page. It also includes a salary breakdown displayed in the form of a pie chart.
 
