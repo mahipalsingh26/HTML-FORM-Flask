@@ -1,4 +1,4 @@
-# Simple HTML Forms x Display with Flask
+# HTML Forms and Display using Flask
 
 This project demonstrates the use of HTML forms for collecting user input and displaying the entered data on a separate page. It also includes a salary breakdown displayed in the form of a pie chart. The web application is built using the Flask framework.
 
