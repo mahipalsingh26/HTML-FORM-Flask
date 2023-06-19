@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Data</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .section {
+      flex: 0 0 48%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .section h3 {
+      margin-top: 0;
+    }
+
+    .section p {
+      margin-bottom: 5px;
+    }
+
+    #salary-chart {
+      width: 400px;
+      height: 400px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Display Data</h1>
+  <div class="container">
+    <div class="section">
+      <h3>Personal Information</h3>
+      <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+      <p><strong>Contact:</strong> <span id="contact"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+    <div class="section">
+      <h3>Current Company Details</h3>
+      <p><strong>Current Company:</strong> <span id="currentCompany"></span></p>
+      <p><strong>Company Type:</strong> <span id="companyType"></span></p>
+      <p><strong>Sector:</strong> <span id="sector"></span></p>
+      <p><strong>Industry:</strong> <span id="industry"></span></p>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h3>CTC Breakdown</h3>
+      <p><strong>Currency:</strong> <span id="currency"></span></p>
+      <p><strong>Allowance:</strong> <span id="allowance"></span></p>
+      <p><strong>Bonus:</strong> <span id="bonus"></span></p>
+      <p><strong>Total Annual:</strong> <span id="totalAnnual"></span></p>
+    </div>
+    <div class="section">
+      <h3>Salary Breakdown</h3>
+      <div id="salary-chart"></div>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve form data from URL query parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var fullName = urlParams.get('fullName');
+    var contact = urlParams.get('contact');
+    var email = urlParams.get('email');
+    var currentCompany = urlParams.get('currentCompany');
+    var companyType = urlParams.get('companyType');
+    var sector = urlParams.get('sector');
+    var industry = urlParams.get('industry');
+    var currency = urlParams.get('currency');
+    var allowance = parseFloat(urlParams.get('allowance'));
+    var bonus = parseFloat(urlParams.get('bonus'));
+    var totalAnnual = parseFloat(urlParams.get('totalAnnual'));
+
+    // Display form data
+    document.getElementById('fullName').textContent = fullName;
+    document.getElementById('contact').textContent = contact;
+    document.getElementById('email').textContent = email;
+    document.getElementById('currentCompany').textContent = currentCompany;
+    document.getElementById('companyType').textContent = companyType;
+    document.getElementById('sector').textContent = sector;
+    document.getElementById('industry').textContent = industry;
+    document.getElementById('currency').textContent = currency;
+    document.getElementById('allowance').textContent = allowance.toLocaleString();
+    document.getElementById('bonus').textContent = bonus.toLocaleString();
+    document.getElementById('totalAnnual').textContent = totalAnnual.toLocaleString();
+
+    // Salary breakdown data
+    var basic = parseFloat(totalAnnual) - allowance - bonus;
+    var salaryData = [
+      { label: 'Basic', value: basic },
+      { label: 'Allowance', value: allowance },
+      { label: 'Bonus', value: bonus }
+    ];
+
+    // Create a pie chart
+    var data = [{
+      values: salaryData.map(item => item.value),
+      labels: salaryData.map(item => item.label),
+      type: 'pie'
+    }];
+
+    var layout = {
+      title: 'Salary Breakdown'
+    };
+
+    Plotly.newPlot('salary-chart', data, layout);
+  </script>
+</body>
+</html>

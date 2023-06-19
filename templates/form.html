@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Job Application Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .tab {
+      overflow: hidden;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+    }
+
+    .tab button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: background-color 0.3s;
+      font-size: 16px;
+    }
+
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-button:hover {
+      background-color: #45a049;
+    }
+
+    .next-button {
+      background-color: #2196F3;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .next-button:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+  <script>
+    function openTab(tabName) {
+      var i, tabContent, tabButtons;
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+      tabButtons = document.getElementsByClassName("tab-button");
+      for (i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      event.currentTarget.className += " active";
+
+      // Check if the current tab is the last tab
+      if (tabName === "ctcBreakdown") {
+        document.getElementsByClassName("submit-button")[0].style.display = "block";
+      } else {
+        document.getElementsByClassName("submit-button")[0].style.display = "none";
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="tab">
+    <button class="tab-button active" onclick="openTab('personalInfo')">Personal Information</button>
+    <button class="tab-button" onclick="openTab('currentCompany')">Current Company Details</button>
+    <button class="tab-button" onclick="openTab('ctcBreakdown')">CTC Breakdown</button>
+  </div>
+
+  <form action="/submit" method="post">
+    <!-- Personal Information Tab -->
+    <div id="personalInfo" class="tab-content" style="display:block;">
+      <h2>Personal Information</h2>
+      <label class="form-label" for="fullName">Full Name:</label>
+      <input class="form-input" type="text" id="fullName" name="fullName"><br><br>
+
+      <label class="form-label" for="contact">Contact:</label>
+      <input class="form-input" type="text" id="contact" name="contact"><br><br>
+
+      <label class="form-label" for="email">Email:</label>
+      <input class="form-input" type="email" id="email" name="email"><br><br>
+
+      <button class="next-button" type="button" onclick="openTab('currentCompany')">Next</button>
+    </div>
+
+    <!-- Current Company Details Tab -->
+    <div id="currentCompany" class="tab-content">
+      <h2>Your Current Company Details</h2>
+      <label class="form-label" for="currentCompany">Current Company:</label>
+      <input class="form-input" type="text" id="currentCompany" name="currentCompany"><br><br>
+
+      <label class="form-label">Company Type:</label>
+      <input type="radio" id="indianCompany" name="companyType" value="Indian Company">
+      <label for="indianCompany">Indian Company</label>
+      <input type="radio" id="mnc" name="companyType" value="MNC">
+      <label for="mnc">MNC</label><br><br>
+
+      <label class="form-label" for="sector">Your Sector:</label>
+      <select class="form-input" id="sector" name="sector">
+        <option value="sector1">Sector 1</option>
+        <option value="sector2">Sector 2</option>
+        <option value="sector3">Sector 3</option>
+      </select><br><br>
+
+      <label class="form-label" for="industry">Your Industry:</label>
+      <select class="form-input" id="industry" name="industry">
+        <option value="industry1">Industry 1</option>
+        <option value="industry2">Industry 2</option>
+        <option value="industry3">Industry 3</option>
+      </select><br><br>
+
+      <button class="next-button" type="button" onclick="openTab('ctcBreakdown')">Next</button>
+    </div>
+
+    <!-- CTC Breakdown Tab -->
+    <div id="ctcBreakdown" class="tab-content">
+      <h2>Enter CTC Breakdown</h2>
+      <label class="form-label" for="currency">Currency:</label>
+      <select class="form-input" id="currency" name="currency">
+        <option value="usd">USD</option>
+        <option value="eur">EUR</option>
+        <option value="inr">INR</option>
+      </select><br><br>
+
+      <label class="form-label" for="allowance">Allowance:</label>
+      <input class="form-input" type="text" id="allowance" name="allowance"><br><br>
+
+      <label class="form-label" for="bonus">Bonus:</label>
+      <input class="form-input" type="text" id="bonus" name="bonus"><br><br>
+
+      <label class="form-label" for="totalAnnual">Total Annual:</label>
+      <input class="form-input" type="text" id="totalAnnual" name="totalAnnual"><br><br>
+
+      <button class="submit-button" type="submit">Submit</button>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("personalInfo").style.display = "block";
+  </script>
+</body>
+
+</html>
